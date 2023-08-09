@@ -1700,7 +1700,7 @@ void dump_registers(riscv_t *rv, char *out_file_path)
     fprintf(f, "{\"int_regs\": [\n");
     for (unsigned i = 0; i < RV_N_REGS; i++) {
         char *comma = i < RV_N_REGS - 1 ? "," : "";
-        fprintf(f, "  {\"name\": \"%s\", \"value\": %u%s}\n", x_reg_names[i],
+        fprintf(f, "  {\"name\": \"%s\", \"value\": %u}%s\n", x_reg_names[i],
                 rv->X[i], comma);
     }
     fprintf(f, "]}\n");
