@@ -1691,10 +1691,17 @@ void dump_registers(riscv_t *rv, char *out_file_path)
         return;
     }
 
-    fprintf(f, "{\n");
+    static char *x_reg_names[] = {
+        "zero", "ra", "sp", "gp", "tp",  "t0",  "t1", "t2", "s0/fp", "s1", "a0",
+        "a1",   "a2", "a3", "a4", "a5",  "a6",  "a7", "s2", "s3",    "s4", "s5",
+        "s6",   "s7", "s8", "s9", "s10", "s11", "t3", "t4", "t5",    "t6",
+    };
+
+    fprintf(f, "{\"int_regs\": [\n");
     for (unsigned i = 0; i < RV_N_REGS; i++) {
         char *comma = i < RV_N_REGS - 1 ? "," : "";
-        fprintf(f, "  \"x%d\": %u%s\n", i, rv->X[i], comma);
+        fprintf(f, "  {\"name\": \"%s\", \"value\": %u%s}\n", x_reg_names[i],
+                rv->X[i], comma);
     }
-    fprintf(f, "}\n");
+    fprintf(f, "]}\n");
 }
